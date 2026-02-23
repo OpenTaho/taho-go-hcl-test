@@ -1,0 +1,12 @@
+package main
+
+import (
+	"fmt"
+)
+
+// Primary entry point for golang programs.
+//
+// The Taho Program is created here and ends when the fuction exits.
+func main() {
+	fmt.Println("TODO: stuff!")
+}

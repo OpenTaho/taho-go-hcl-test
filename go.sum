@@ -1,0 +1,12 @@
+github.com/openTaho/taho-go-hcl v0.2.1 h1:E820hLhRX6b4mqslatkMShUEkSL+AUFLE9XBzp3EIeg=
+github.com/openTaho/taho-go-hcl v0.2.1/go.mod h1:rXfYmSZMJwjou0v6UwPgWYFOv/8dgprMiRGR4SAWv/M=
+github.com/openTaho/taho-go-hcl-thin v0.0.0-20260224001223-9f4b6d8bbbde h1:ev+qmDPr4aBo8imKqSss1YRMcoeHPypC+7ClDalS10E=
+github.com/openTaho/taho-go-hcl-thin v0.0.0-20260224001223-9f4b6d8bbbde/go.mod h1:oh7Lb2J0p/SGszCidoxR0rT4loVNbq30b42jm8GsAXA=
+github.com/openTaho/taho-go-hcl-thin v0.1.0 h1:u9mwpdDO2qx/fEKt4A56aZouPcsdevHhSWCZysXJ1Oc=
+github.com/openTaho/taho-go-hcl-thin v0.1.0/go.mod h1:oh7Lb2J0p/SGszCidoxR0rT4loVNbq30b42jm8GsAXA=
+github.com/openTaho/taho-go-hcl-thin v0.1.1 h1:O3fxE7QyrXuYoshebPgevwwgjfEry8rWMocw6HTJuIg=
+github.com/openTaho/taho-go-hcl-thin v0.1.1/go.mod h1:oh7Lb2J0p/SGszCidoxR0rT4loVNbq30b42jm8GsAXA=
+github.com/openTaho/taho-go-hcl-thin v0.1.2 h1:Q0bH2Ohnfy8kM1nvxx+LQw0hr98yNXCYwJA/S0zGITc=
+github.com/openTaho/taho-go-hcl-thin v0.1.2/go.mod h1:ruPZpHwn+8d43KGrNJ/I6EXbImvJmsx40LRVCusRy1A=
+github.com/openTaho/taho-go-hcl-thin v0.1.3 h1:sKsuUwR/F3+8TmwBcPISl+gTiqqSKhesvVNHe19Utuw=
+github.com/openTaho/taho-go-hcl-thin v0.1.3/go.mod h1:ruPZpHwn+8d43KGrNJ/I6EXbImvJmsx40LRVCusRy1A=
