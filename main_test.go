@@ -10,6 +10,10 @@ func TestThinNewDir(t *testing.T) {
 	testNewDir(t, thinHclParser.New())
 }
 
-func TestThinNewFile01(t *testing.T) {
-	testNewFile01(t, thinHclParser.New())
+func TestThinNewFile000(t *testing.T) {
+	testNewFile000(t, thinHclParser.New())
+}
+
+func TestThinNewFile101(t *testing.T) {
+	testNewFile101(t, thinHclParser.New())
 }

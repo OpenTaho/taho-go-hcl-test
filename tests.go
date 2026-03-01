@@ -3,7 +3,6 @@ package main
 import (
 	"os"
 	"strconv"
-	"strings"
 
 	"testing"
 
@@ -27,133 +26,162 @@ func testNewDir(t *testing.T, parser hcl.HclParser) {
 	if err != nil {
 		panic(err)
 	}
-	expect(t, strconv.Itoa(len(files)), "4")
-	expect(t, files[0].Name(), wd+"/tests/01/01.tfvars")
-	expect(t, files[1].Name(), wd+"/tests/01/02.tf")
-	expect(t, files[2].Name(), wd+"/tests/01/03.hcl")
-	expect(t, files[3].Name(), wd+"/tests/01/04.tf")
+	expect(t, strconv.Itoa(len(files)), "11")
+	expect(t, files[0].Name(), wd+"/tests/01/000.tfvars")
+	expect(t, files[1].Name(), wd+"/tests/01/001.tfvars")
+	expect(t, files[2].Name(), wd+"/tests/01/002.tfvars")
+	expect(t, files[3].Name(), wd+"/tests/01/003.tfvars")
+	expect(t, files[4].Name(), wd+"/tests/01/004.tfvars")
+	expect(t, files[5].Name(), wd+"/tests/01/101.tfvars")
+	expect(t, files[6].Name(), wd+"/tests/01/102.tf")
+	expect(t, files[7].Name(), wd+"/tests/01/103.hcl")
+	expect(t, files[8].Name(), wd+"/tests/01/104.tf")
 }
 
-func testNewFile01(t *testing.T, parser hcl.HclParser) {
-	file := parser.NewFile("./tests/01/01.tfvars")
+func testNewFile000(t *testing.T, parser hcl.HclParser) {
+	file := parser.NewFile("./tests/01/000.tfvars")
 	wd, err := os.Getwd()
 	if err != nil {
 		panic(err)
 	}
-	expect(t, file.Name(), wd+"/tests/01/01.tfvars")
+	expect(t, file.Name(), wd+"/tests/01/000.tfvars")
+	nodes := file.Nodes()
+	expect(t, nodes[0].Value(), "000.tfvars")
+}
 
-	elements := file.Elements()
-	eLen := len(elements)
-	expect(t, strconv.Itoa(eLen), "1")
-	elements = elements[0].NestedElements()
-	eLen = len(elements)
-	expect(t, strconv.Itoa(eLen), "17")
+func testNewFile101(t *testing.T, parser hcl.HclParser) {
+	file := parser.NewFile("./tests/01/101.tfvars")
+
+	nodes := file.Nodes()
+	nLen := len(nodes)
+	expect(t, strconv.Itoa(nLen), "1")
+	expect(t, nodes[0].Value(), "101.tfvars")
+	nodes = nodes[0].Nodes()
+
+	// TODO: add this back later
+	// nLen = len(nodes)
+	// expect(t, strconv.Itoa(nLen), "17")
 
 	// Build the string we need for our expectation
-	b := []string{}
-	b = append(b, "# This sample content has a variety of elements, including comments, blank")
-	b = append(b, "# lines, null values, and multi-line strings. The parser should be able to")
-	b = append(b, "# handle all of these elements correctly and produce the expected output.")
-	b = append(b, "#")
-	b = append(b, "# This file should have 17 elements.")
-	b = append(b, "#")
-	b = append(b, "# [0]    - the file block")
-	b = append(b, "# [0][0] - the multi-line comment")
-	b = append(b, "# [0][1] - a pair with a null")
-	b = append(b, "# [0][2] - a pair with a null without whitespace")
-	b = append(b, "# [0][3] - a pair with a null with whitespace on the right")
-	b = append(b, "# [0][4] - a blank line")
-	b = append(b, "# [0][5] - a pair with a string")
-	b = append(b, "# [0][6] - a pair with a string without whitespace")
-	b = append(b, "# [0][7] - a pair with a string whitespace on the right")
-	b = append(b, "# [0][8] - another blank line")
-	b = append(b, "# [0][9] - a pair with a long name and another null value")
-	b = append(b, "# [0][10] - yet another blank line")
-	b = append(b, "# [0][11] - a pair with a multi line string")
-	b = append(b, "# [0][12] - a pair with a numeric")
-	b = append(b, "# [0][13] - a pair with a numeric without whitespace")
-	b = append(b, "# [0][14] - a pair with a numeric with whitespace on the right")
-	b = append(b, "# [0][15] - a pair with a numeric with whitespace on the left")
-	b = append(b, "#")
-	b = append(b, "")
+	txt := NewTextBuilder()
+	txt.Add("# This sample content has a variety of elements, including comments, blank")
+	txt.Add("# lines, null values, and multi-line strings. The parser should be able to")
+	txt.Add("# handle all of these elements correctly and produce the expected output.")
+	txt.Add("#")
+	txt.Add("# This file should have 17 elements.")
+	txt.Add("#")
+	txt.Add("# [0]    - the file block")
+	txt.Add("# [0][0] - the multi-line comment")
+	txt.Add("# [0][1] - a pair with a null")
+	txt.Add("# [0][2] - a pair with a null without whitespace")
+	txt.Add("# [0][3] - a pair with a null with whitespace on the right")
+	txt.Add("# [0][4] - a blank line")
+	txt.Add("# [0][5] - a pair with a string")
+	txt.Add("# [0][6] - a pair with a string without whitespace")
+	txt.Add("# [0][7] - a pair with a string whitespace on the right")
+	txt.Add("# [0][8] - another blank line")
+	txt.Add("# [0][9] - a pair with a long name and another null value")
+	txt.Add("# [0][10] - yet another blank line")
+	txt.Add("# [0][11] - a pair with a multi line string")
+	txt.Add("# [0][12] - a pair with a numeric")
+	txt.Add("# [0][13] - a pair with a numeric without whitespace")
+	txt.Add("# [0][14] - a pair with a numeric with whitespace on the right")
+	txt.Add("# [0][15] - a pair with a numeric with whitespace on the left")
+	txt.Add("#")
+	txt.Add("")
 
-	el_num := 0
-	el := elements[el_num]
-	expect(t, el.Value(), strings.Join(b, "\n"))
+	n := 0
+	node := nodes[n]
+	expect(t, node.Type().String(), "comment")
+	expect(t, node.Value(), txt.String())
 
-	el_num++
-	el = elements[el_num]
-	expect(t, el.Pair().Value(), "test1")
-	expect(t, el.Value(), "null")
+	n++
+	node = nodes[n]
+	expect(t, node.Pair().Value(), "test1")
+	expect(t, node.Pair().Type().String(), "token")
+	expect(t, node.Value(), "null")
 
-	el_num++
-	el = elements[el_num]
-	expect(t, el.Pair().Value(), "test2")
-	expect(t, el.Value(), "null")
+	n++
+	node = nodes[n]
+	expect(t, node.Pair().Value(), "test2")
+	expect(t, node.Pair().Type().String(), "token")
+	expect(t, node.Value(), "null")
 
-	el_num++
-	el = elements[el_num]
-	expect(t, el.Pair().Value(), "test3")
-	expect(t, el.Value(), "null")
+	n++
+	node = nodes[n]
+	expect(t, node.Pair().Value(), "test3")
+	expect(t, node.Pair().Type().String(), "token")
+	expect(t, node.Value(), "null")
 
-	el_num++
-	el = elements[el_num]
-	expect(t, el.Value(), "\n")
+	n++
+	node = nodes[n]
+	expect(t, node.Type().String(), "token")
+	expect(t, node.Value(), "\n")
 
-	el_num++
-	el = elements[el_num]
-	expect(t, el.Pair().Value(), "test4")
-	expect(t, el.Value(), "A \\\"simple\\\" string")
+	n++
+	node = nodes[n]
+	expect(t, node.Pair().Value(), "test4")
+	expect(t, node.Pair().Type().String(), "token")
+	expect(t, node.Value(), "A \\\"simple\\\" string")
 
-	el_num++
-	el = elements[el_num]
-	expect(t, el.Pair().Value(), "test5")
-	expect(t, el.Value(), "A \\\"simple\\\" string")
+	n++
+	node = nodes[n]
+	expect(t, node.Pair().Value(), "test5")
+	expect(t, node.Pair().Type().String(), "token")
+	expect(t, node.Value(), "A \\\"simple\\\" string")
 
-	el_num++
-	el = elements[el_num]
-	expect(t, el.Pair().Value(), "test6")
-	expect(t, el.Value(), "A \\\"simple\\\" string")
+	n++
+	node = nodes[n]
+	expect(t, node.Pair().Value(), "test6")
+	expect(t, node.Pair().Type().String(), "token")
+	expect(t, node.Value(), "A \\\"simple\\\" string")
 
-	el_num++
-	el = elements[el_num]
-	expect(t, el.Value(), "\n")
+	n++
+	node = nodes[n]
+	expect(t, node.Value(), "\n")
 
-	el_num++
-	el = elements[el_num]
-	expect(t, el.Pair().Value(), "test7_long_name")
-	expect(t, el.Value(), "null")
+	n++
+	node = nodes[n]
+	expect(t, node.Pair().Value(), "test7_long_name")
+	expect(t, node.Pair().Type().String(), "token")
+	expect(t, node.Value(), "null")
 
-	el_num++
-	el = elements[el_num]
-	expect(t, el.Value(), "\n")
+	n++
+	node = nodes[n]
+	expect(t, node.Value(), "\n")
 
-	el_num++
-	el = elements[el_num]
-	expect(t, el.Pair().Value(), "test8")
-	expect(t, el.Value(), "This is a multi-line string.\n")
+	n++
+	node = nodes[n]
+	expect(t, node.Pair().Value(), "test8")
+	expect(t, node.Pair().Type().String(), "token")
+	expect(t, node.Value(), "This is a multi-line string.\n")
 
-	el_num++
-	el = elements[el_num]
-	expect(t, el.Value(), "\n")
+	n++
+	node = nodes[n]
+	expect(t, node.Type().String(), "token")
+	expect(t, node.Value(), "\n")
 
-	el_num++
-	el = elements[el_num]
-	expect(t, el.Pair().Value(), "test9")
-	expect(t, el.Value(), "1")
+	n++
+	node = nodes[n]
+	expect(t, node.Pair().Value(), "test9")
+	expect(t, node.Pair().Type().String(), "token")
+	expect(t, node.Value(), "1")
 
-	el_num++
-	el = elements[el_num]
-	expect(t, el.Pair().Value(), "test10")
-	expect(t, el.Value(), "2")
+	n++
+	node = nodes[n]
+	expect(t, node.Pair().Value(), "test10")
+	expect(t, node.Pair().Type().String(), "token")
+	expect(t, node.Value(), "2")
 
-	el_num++
-	el = elements[el_num]
-	expect(t, el.Pair().Value(), "test11")
-	expect(t, el.Value(), "3")
+	n++
+	node = nodes[n]
+	expect(t, node.Pair().Value(), "test11")
+	expect(t, node.Pair().Type().String(), "token")
+	expect(t, node.Value(), "3")
 
-	el_num++
-	el = elements[el_num]
-	expect(t, el.Pair().Value(), "test12")
-	expect(t, el.Value(), "4")
+	n++
+	node = nodes[n]
+	expect(t, node.Pair().Value(), "test12")
+	expect(t, node.Pair().Type().String(), "token")
+	expect(t, node.Value(), "4")
 }

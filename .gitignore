@@ -34,3 +34,4 @@ go.work.sum
 # debug files
 __debug_*
 taho-go-hcl-test
+terraform.tfstate*

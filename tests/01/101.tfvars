@@ -40,3 +40,12 @@ test9 = 1
 test10=2
 test11= 3
 test12 =4
+test13 = 5 + 6
+test14 = 7 + 8+9
+test15 = 10 / 11 - 12
+test16 = 13 * 14 * 15.16
+test17 = 17 == 18 == 19 != 20
+test18 = true
+test19 = !true
+test20 = true || false
+test21 = true && false
