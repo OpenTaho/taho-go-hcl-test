@@ -16,7 +16,9 @@
 # [0][8] - another blank line
 # [0][9] - a pair with a long name and another null value
 # [0][10] - yet another blank line
-# [0][11] - a pair with a multi line string
+# [0][11] - a pair with a heredoc
+# [0][10] - yet another blank line
+# [0][11] - a pair with an indent style heredoc
 # [0][12] - a pair with a numeric
 # [0][13] - a pair with a numeric without whitespace
 # [0][14] - a pair with a numeric with whitespace on the right
@@ -33,19 +35,23 @@ test6= "A \"simple\" string"
 test7_long_name = null
 
 test8 = <<EOT
-This is a multi-line string.
+This is a heredoc.
 EOT
 
-test9 = 1
-test10=2
-test11= 3
-test12 =4
-test13 = 5 + 6
-test14 = 7 + 8+9
-test15 = 10 / 11 - 12
-test16 = 13 * 14 * 15.16
-test17 = 17 == 18 == 19 != 20
-test18 = true
-test19 = !true
-test20 = true || false
-test21 = true && false
+test9 = <<-EOT
+This is an indent style heredoc.
+EOT
+
+test10 = 1
+test11=2
+test12= 3
+test13 =4
+test14 = 5 + 6
+test15 = 7 + 8+9
+test16 = 10 / 11 - 12
+test17 = 13 * 14 * 15.16
+test18 = 17 == 18 == 19 != 20
+test19 = true
+test20 = !true
+test21 = true || false
+test22 = true && false
