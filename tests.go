@@ -187,29 +187,38 @@ func testNewFile101(t *testing.T, parser hcl.HclParser) {
 	node = nodes[n]
 	expect(t, node.Pair().Value(), "test10")
 	expect(t, node.Pair().Type().String(), "token")
+	expect(t, node.Type().String(), "token")
 	expect(t, node.Value(), "1")
 
 	n++
 	node = nodes[n]
 	expect(t, node.Pair().Value(), "test11")
 	expect(t, node.Pair().Type().String(), "token")
+	expect(t, node.Type().String(), "token")
 	expect(t, node.Value(), "2")
 
 	n++
 	node = nodes[n]
 	expect(t, node.Pair().Value(), "test12")
 	expect(t, node.Pair().Type().String(), "token")
+	expect(t, node.Type().String(), "token")
 	expect(t, node.Value(), "3")
 
 	n++
 	node = nodes[n]
 	expect(t, node.Pair().Value(), "test13")
 	expect(t, node.Pair().Type().String(), "token")
+	expect(t, node.Type().String(), "token")
 	expect(t, node.Value(), "4")
 
 	n++
 	node = nodes[n]
-	expect(t, node.Pair().Value(), "test14")
+	expect(t, node.Operator(), "+")
+	expect(t, node.Pair().Operator(), "=")
+	expect(t, node.Pair().Pair().Type().String(), "token")
+	expect(t, node.Pair().Pair().Value(), "test14")
 	expect(t, node.Pair().Type().String(), "token")
-	expect(t, node.Value(), "5")
+	expect(t, node.Pair().Value(), "5")
+	expect(t, node.Type().String(), "token")
+	expect(t, node.Value(), "6")
 }

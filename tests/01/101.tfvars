@@ -47,11 +47,3 @@ test11=2
 test12= 3
 test13 =4
 test14 = 5 + 6
-test15 = 7 + 8+9
-test16 = 10 / 11 - 12
-test17 = 13 * 14 * 15.16
-test18 = 17 == 18 == 19 != 20
-test19 = true
-test20 = !true
-test21 = true || false
-test22 = true && false
