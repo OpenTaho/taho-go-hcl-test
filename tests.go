@@ -99,72 +99,24 @@ func testNewFile101(t *testing.T, parser hcl.HclParser) {
 
 	n++
 	node = nodes[n]
+	expect(t, node.Pair().Pair().Value(), "test1")
 	expect(t, node.Pair().Type().String(), "token")
-	expect(t, node.Pair().Value(), "test1")
-	expect(t, node.Type().String(), "token")
-	expect(t, node.Value(), "null")
+	expect(t, node.Pair().Value(), "null")
+	expect(t, node.Type().String(), "single-line-pair")
 
 	n++
 	node = nodes[n]
-	expect(t, node.Pair().Value(), "test2")
+	expect(t, node.Pair().Pair().Value(), "test2")
 	expect(t, node.Pair().Type().String(), "token")
-	expect(t, node.Type().String(), "token")
-	expect(t, node.Value(), "null")
+	expect(t, node.Pair().Value(), "null")
+	expect(t, node.Type().String(), "single-line-pair")
 
 	n++
 	node = nodes[n]
-	expect(t, node.Pair().Value(), "test3")
+	expect(t, node.Pair().Pair().Value(), "test3")
 	expect(t, node.Pair().Type().String(), "token")
-	expect(t, node.Type().String(), "token")
-	expect(t, node.Value(), "null")
-
-	n++
-	node = nodes[n]
-	expect(t, node.Type().String(), "token")
-	expect(t, node.Value(), "\n")
-
-	n++
-	node = nodes[n]
-	expect(t, node.Pair().Value(), "test4")
-	expect(t, node.Pair().Type().String(), "token")
-	expect(t, node.Type().String(), "string")
-	expect(t, node.Value(), "A \\\"simple\\\" string")
-
-	n++
-	node = nodes[n]
-	expect(t, node.Pair().Value(), "test5")
-	expect(t, node.Pair().Type().String(), "token")
-	expect(t, node.Type().String(), "string")
-	expect(t, node.Value(), "A \\\"simple\\\" string")
-
-	n++
-	node = nodes[n]
-	expect(t, node.Pair().Value(), "test6")
-	expect(t, node.Pair().Type().String(), "token")
-	expect(t, node.Type().String(), "string")
-	expect(t, node.Value(), "A \\\"simple\\\" string")
-
-	n++
-	node = nodes[n]
-	expect(t, node.Value(), "\n")
-
-	n++
-	node = nodes[n]
-	expect(t, node.Pair().Value(), "test7_long_name")
-	expect(t, node.Pair().Type().String(), "token")
-	expect(t, node.Type().String(), "token")
-	expect(t, node.Value(), "null")
-
-	n++
-	node = nodes[n]
-	expect(t, node.Value(), "\n")
-
-	n++
-	node = nodes[n]
-	expect(t, node.Pair().Value(), "test8")
-	expect(t, node.Pair().Type().String(), "token")
-	expect(t, node.Type().String(), "doc")
-	expect(t, node.Value(), "This is a heredoc.\n")
+	expect(t, node.Pair().Value(), "null")
+	expect(t, node.Type().String(), "single-line-pair")
 
 	n++
 	node = nodes[n]
@@ -173,10 +125,46 @@ func testNewFile101(t *testing.T, parser hcl.HclParser) {
 
 	n++
 	node = nodes[n]
-	expect(t, node.Pair().Value(), "test9")
+	expect(t, node.Pair().Pair().Value(), "test4")
+	expect(t, node.Pair().Type().String(), "string")
+	expect(t, node.Pair().Value(), "A \\\"simple\\\" string")
+	expect(t, node.Type().String(), "single-line-pair")
+
+	n++
+	node = nodes[n]
+	expect(t, node.Pair().Pair().Value(), "test5")
+	expect(t, node.Pair().Type().String(), "string")
+	expect(t, node.Pair().Value(), "A \\\"simple\\\" string")
+	expect(t, node.Type().String(), "single-line-pair")
+
+	n++
+	node = nodes[n]
+	expect(t, node.Pair().Pair().Value(), "test6")
+	expect(t, node.Pair().Type().String(), "string")
+	expect(t, node.Pair().Value(), "A \\\"simple\\\" string")
+	expect(t, node.Type().String(), "single-line-pair")
+
+	n++
+	node = nodes[n]
+	expect(t, node.Value(), "\n")
+
+	n++
+	node = nodes[n]
+	expect(t, node.Pair().Pair().Value(), "test7_long_name")
 	expect(t, node.Pair().Type().String(), "token")
-	expect(t, node.Type().String(), "doc-with-indent")
-	expect(t, node.Value(), "This is an indent style heredoc.\n")
+	expect(t, node.Pair().Value(), "null")
+	expect(t, node.Type().String(), "single-line-pair")
+
+	n++
+	node = nodes[n]
+	expect(t, node.Value(), "\n")
+
+	n++
+	node = nodes[n]
+	expect(t, node.Pair().Pair().Value(), "test8")
+	expect(t, node.Pair().Type().String(), "doc")
+	expect(t, node.Pair().Value(), "This is a heredoc.\n")
+	expect(t, node.Type().String(), "multi-line-pair")
 
 	n++
 	node = nodes[n]
@@ -185,31 +173,43 @@ func testNewFile101(t *testing.T, parser hcl.HclParser) {
 
 	n++
 	node = nodes[n]
-	expect(t, node.Pair().Value(), "test10")
-	expect(t, node.Pair().Type().String(), "token")
-	expect(t, node.Type().String(), "token")
-	expect(t, node.Value(), "1")
+	expect(t, node.Pair().Pair().Value(), "test9")
+	expect(t, node.Pair().Type().String(), "doc-with-indent")
+	expect(t, node.Pair().Value(), "This is an indent style heredoc.\n")
+	expect(t, node.Type().String(), "multi-line-pair")
 
 	n++
 	node = nodes[n]
-	expect(t, node.Pair().Value(), "test11")
-	expect(t, node.Pair().Type().String(), "token")
 	expect(t, node.Type().String(), "token")
-	expect(t, node.Value(), "2")
+	expect(t, node.Value(), "\n")
 
 	n++
 	node = nodes[n]
-	expect(t, node.Pair().Value(), "test12")
+	expect(t, node.Pair().Pair().Value(), "test10")
+	expect(t, node.Pair().Pair().Type().String(), "token")
 	expect(t, node.Pair().Type().String(), "token")
-	expect(t, node.Type().String(), "token")
-	expect(t, node.Value(), "3")
+	expect(t, node.Pair().Value(), "1")
 
 	n++
 	node = nodes[n]
-	expect(t, node.Pair().Value(), "test13")
+	expect(t, node.Pair().Pair().Value(), "test11")
+	expect(t, node.Pair().Pair().Type().String(), "token")
 	expect(t, node.Pair().Type().String(), "token")
-	expect(t, node.Type().String(), "token")
-	expect(t, node.Value(), "4")
+	expect(t, node.Pair().Value(), "2")
+
+	n++
+	node = nodes[n]
+	expect(t, node.Pair().Pair().Value(), "test12")
+	expect(t, node.Pair().Pair().Type().String(), "token")
+	expect(t, node.Pair().Type().String(), "token")
+	expect(t, node.Pair().Value(), "3")
+
+	n++
+	node = nodes[n]
+	expect(t, node.Pair().Pair().Value(), "test13")
+	expect(t, node.Pair().Pair().Type().String(), "token")
+	expect(t, node.Pair().Type().String(), "token")
+	expect(t, node.Pair().Value(), "4")
 
 	n++
 	node = nodes[n]
