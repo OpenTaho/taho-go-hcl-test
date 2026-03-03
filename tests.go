@@ -52,11 +52,11 @@ func testNewFile000(t *testing.T, parser hcl.HclParser) {
 func testNewFile101(t *testing.T, parser hcl.HclParser) {
 	file := parser.NewFile("./tests/01/101.tfvars")
 
-	nodes := file.Nodes()
-	nLen := len(nodes)
+	fileNodes := file.Nodes()
+	nLen := len(fileNodes)
 	expect(t, strconv.Itoa(nLen), "1")
-	expect(t, nodes[0].Value(), "101.tfvars")
-	nodes = nodes[0].Nodes()
+	expect(t, fileNodes[0].Value(), "101.tfvars")
+	fileNodes = fileNodes[0].Nodes()
 
 	// TODO: add this back later
 	// nLen = len(nodes)
@@ -93,132 +93,188 @@ func testNewFile101(t *testing.T, parser hcl.HclParser) {
 	txt.Add("")
 
 	n := 0
-	node := nodes[n]
+	node := fileNodes[n]
+	nodes := node.Nodes()
 	expect(t, node.Type().String(), "comment")
 	expect(t, node.Value(), txt.String())
 
 	n++
-	node = nodes[n]
-	expect(t, node.Pair().Pair().Value(), "test1")
-	expect(t, node.Pair().Type().String(), "token")
-	expect(t, node.Pair().Value(), "null")
-	expect(t, node.Type().String(), "single-line-pair")
+	node = fileNodes[n]
+	nodes = node.Nodes()
+	expect(t, node.Type().String(), "pair")
+	expect(t, node.Value(), "test1")
+	expect(t, nodes[0].Type().String(), "space")
+	expect(t, nodes[0].Value(), " ")
+	expect(t, nodes[1].Type().String(), "token")
+	expect(t, nodes[1].Value(), "null")
+	expect(t, strconv.Itoa(len(nodes)), "2")
 
 	n++
-	node = nodes[n]
-	expect(t, node.Pair().Pair().Value(), "test2")
-	expect(t, node.Pair().Type().String(), "token")
-	expect(t, node.Pair().Value(), "null")
-	expect(t, node.Type().String(), "single-line-pair")
+	node = fileNodes[n]
+	nodes = node.Nodes()
+	expect(t, node.Type().String(), "pair")
+	expect(t, node.Value(), "test2")
+	expect(t, nodes[0].Type().String(), "token")
+	expect(t, nodes[0].Value(), "null")
+	expect(t, strconv.Itoa(len(nodes)), "1")
 
 	n++
-	node = nodes[n]
-	expect(t, node.Pair().Pair().Value(), "test3")
-	expect(t, node.Pair().Type().String(), "token")
-	expect(t, node.Pair().Value(), "null")
-	expect(t, node.Type().String(), "single-line-pair")
+	node = fileNodes[n]
+	nodes = node.Nodes()
+	expect(t, node.Type().String(), "pair")
+	expect(t, node.Value(), "test3")
+	expect(t, nodes[0].Type().String(), "space")
+	expect(t, nodes[0].Value(), " ")
+	expect(t, nodes[1].Type().String(), "token")
+	expect(t, nodes[1].Value(), "null")
+	expect(t, strconv.Itoa(len(nodes)), "2")
 
 	n++
-	node = nodes[n]
-	expect(t, node.Type().String(), "token")
+	node = fileNodes[n]
+	nodes = node.Nodes()
+	expect(t, node.Type().String(), "space")
 	expect(t, node.Value(), "\n")
 
 	n++
-	node = nodes[n]
-	expect(t, node.Pair().Pair().Value(), "test4")
-	expect(t, node.Pair().Type().String(), "string")
-	expect(t, node.Pair().Value(), "A \\\"simple\\\" string")
-	expect(t, node.Type().String(), "single-line-pair")
+	node = fileNodes[n]
+	nodes = node.Nodes()
+	expect(t, node.Type().String(), "pair")
+	expect(t, node.Value(), "test4")
+	expect(t, nodes[0].Type().String(), "space")
+	expect(t, nodes[0].Value(), " ")
+	expect(t, nodes[1].Type().String(), "string")
+	expect(t, nodes[1].Value(), "A \\\"simple\\\" string")
+	expect(t, strconv.Itoa(len(nodes)), "2")
 
 	n++
-	node = nodes[n]
-	expect(t, node.Pair().Pair().Value(), "test5")
-	expect(t, node.Pair().Type().String(), "string")
-	expect(t, node.Pair().Value(), "A \\\"simple\\\" string")
-	expect(t, node.Type().String(), "single-line-pair")
+	node = fileNodes[n]
+	nodes = node.Nodes()
+	expect(t, node.Type().String(), "pair")
+	expect(t, node.Value(), "test5")
+	expect(t, nodes[0].Type().String(), "string")
+	expect(t, nodes[0].Value(), "A \\\"simple\\\" string")
+	expect(t, strconv.Itoa(len(nodes)), "1")
 
 	n++
-	node = nodes[n]
-	expect(t, node.Pair().Pair().Value(), "test6")
-	expect(t, node.Pair().Type().String(), "string")
-	expect(t, node.Pair().Value(), "A \\\"simple\\\" string")
-	expect(t, node.Type().String(), "single-line-pair")
+	node = fileNodes[n]
+	nodes = node.Nodes()
+	expect(t, node.Type().String(), "pair")
+	expect(t, node.Value(), "test6")
+	expect(t, nodes[0].Type().String(), "space")
+	expect(t, nodes[0].Value(), " ")
+	expect(t, nodes[1].Type().String(), "string")
+	expect(t, nodes[1].Value(), "A \\\"simple\\\" string")
+	expect(t, strconv.Itoa(len(nodes)), "2")
 
 	n++
-	node = nodes[n]
+	node = fileNodes[n]
+	nodes = node.Nodes()
+	expect(t, node.Type().String(), "space")
 	expect(t, node.Value(), "\n")
 
 	n++
-	node = nodes[n]
-	expect(t, node.Pair().Pair().Value(), "test7_long_name")
-	expect(t, node.Pair().Type().String(), "token")
-	expect(t, node.Pair().Value(), "null")
-	expect(t, node.Type().String(), "single-line-pair")
+	node = fileNodes[n]
+	nodes = node.Nodes()
+	expect(t, node.Type().String(), "pair")
+	expect(t, node.Value(), "test7_long_name")
+	expect(t, nodes[0].Type().String(), "space")
+	expect(t, nodes[0].Value(), " ")
+	expect(t, nodes[1].Type().String(), "token")
+	expect(t, nodes[1].Value(), "null")
+	expect(t, strconv.Itoa(len(nodes)), "2")
 
 	n++
-	node = nodes[n]
+	node = fileNodes[n]
+	nodes = node.Nodes()
+	expect(t, node.Type().String(), "space")
 	expect(t, node.Value(), "\n")
 
 	n++
-	node = nodes[n]
-	expect(t, node.Pair().Pair().Value(), "test8")
-	expect(t, node.Pair().Type().String(), "doc")
-	expect(t, node.Pair().Value(), "This is a heredoc.\n")
-	expect(t, node.Type().String(), "multi-line-pair")
+	node = fileNodes[n]
+	nodes = node.Nodes()
+	expect(t, node.Type().String(), "pair")
+	expect(t, node.Value(), "test8")
+	expect(t, nodes[0].Type().String(), "doc")
+	expect(t, nodes[0].Value(), "This is a heredoc.\n")
+	expect(t, strconv.Itoa(len(nodes)), "1")
 
 	n++
-	node = nodes[n]
-	expect(t, node.Type().String(), "token")
+	node = fileNodes[n]
+	nodes = node.Nodes()
+	expect(t, node.Type().String(), "space")
 	expect(t, node.Value(), "\n")
 
 	n++
-	node = nodes[n]
-	expect(t, node.Pair().Pair().Value(), "test9")
-	expect(t, node.Pair().Type().String(), "doc-with-indent")
-	expect(t, node.Pair().Value(), "This is an indent style heredoc.\n")
-	expect(t, node.Type().String(), "multi-line-pair")
+	node = fileNodes[n]
+	nodes = node.Nodes()
+	expect(t, node.Type().String(), "pair")
+	expect(t, node.Value(), "test9")
+	expect(t, nodes[0].Type().String(), "doc-with-indent")
+	expect(t, nodes[0].Value(), "This is an indent style heredoc.\n")
+	expect(t, strconv.Itoa(len(nodes)), "1")
 
 	n++
-	node = nodes[n]
-	expect(t, node.Type().String(), "token")
+	node = fileNodes[n]
+	nodes = node.Nodes()
+	expect(t, node.Type().String(), "space")
 	expect(t, node.Value(), "\n")
 
 	n++
-	node = nodes[n]
-	expect(t, node.Pair().Pair().Value(), "test10")
-	expect(t, node.Pair().Pair().Type().String(), "token")
-	expect(t, node.Pair().Type().String(), "token")
-	expect(t, node.Pair().Value(), "1")
+	node = fileNodes[n]
+	nodes = node.Nodes()
+	expect(t, node.Type().String(), "pair")
+	expect(t, node.Value(), "test10")
+	expect(t, nodes[0].Type().String(), "space")
+	expect(t, nodes[0].Value(), " ")
+	expect(t, nodes[1].Type().String(), "token")
+	expect(t, nodes[1].Value(), "1")
+	expect(t, strconv.Itoa(len(nodes)), "2")
 
 	n++
-	node = nodes[n]
-	expect(t, node.Pair().Pair().Value(), "test11")
-	expect(t, node.Pair().Pair().Type().String(), "token")
-	expect(t, node.Pair().Type().String(), "token")
-	expect(t, node.Pair().Value(), "2")
+	node = fileNodes[n]
+	nodes = node.Nodes()
+	expect(t, node.Type().String(), "pair")
+	expect(t, node.Value(), "test11")
+	expect(t, nodes[0].Type().String(), "token")
+	expect(t, nodes[0].Value(), "2")
+	expect(t, strconv.Itoa(len(nodes)), "1")
 
 	n++
-	node = nodes[n]
-	expect(t, node.Pair().Pair().Value(), "test12")
-	expect(t, node.Pair().Pair().Type().String(), "token")
-	expect(t, node.Pair().Type().String(), "token")
-	expect(t, node.Pair().Value(), "3")
+	node = fileNodes[n]
+	nodes = node.Nodes()
+	expect(t, node.Type().String(), "pair")
+	expect(t, node.Value(), "test12")
+	expect(t, nodes[0].Type().String(), "space")
+	expect(t, nodes[0].Value(), " ")
+	expect(t, nodes[1].Type().String(), "token")
+	expect(t, nodes[1].Value(), "3")
+	expect(t, strconv.Itoa(len(nodes)), "2")
 
 	n++
-	node = nodes[n]
-	expect(t, node.Pair().Pair().Value(), "test13")
-	expect(t, node.Pair().Pair().Type().String(), "token")
-	expect(t, node.Pair().Type().String(), "token")
-	expect(t, node.Pair().Value(), "4")
+	node = fileNodes[n]
+	nodes = node.Nodes()
+	expect(t, node.Type().String(), "pair")
+	expect(t, node.Value(), "test13")
+	expect(t, nodes[0].Type().String(), "token")
+	expect(t, nodes[0].Value(), "4")
+	expect(t, strconv.Itoa(len(nodes)), "1")
 
 	n++
-	node = nodes[n]
-	expect(t, node.Operator(), "+")
-	expect(t, node.Pair().Operator(), "=")
-	expect(t, node.Pair().Pair().Type().String(), "token")
-	expect(t, node.Pair().Pair().Value(), "test14")
-	expect(t, node.Pair().Type().String(), "token")
-	expect(t, node.Pair().Value(), "5")
-	expect(t, node.Type().String(), "token")
-	expect(t, node.Value(), "6")
+	node = fileNodes[n]
+	nodes = node.Nodes()
+	expect(t, node.Type().String(), "pair")
+	expect(t, node.Value(), "test14")
+	expect(t, nodes[0].Type().String(), "space")
+	expect(t, nodes[0].Value(), " ")
+	expect(t, nodes[1].Type().String(), "token")
+	expect(t, nodes[1].Value(), "5")
+	expect(t, nodes[2].Type().String(), "space")
+	expect(t, nodes[2].Value(), " ")
+	expect(t, nodes[3].Type().String(), "token")
+	expect(t, nodes[3].Value(), "+")
+	expect(t, nodes[4].Type().String(), "space")
+	expect(t, nodes[4].Value(), " ")
+	expect(t, nodes[5].Type().String(), "token")
+	expect(t, nodes[5].Value(), "6")
+	expect(t, strconv.Itoa(len(nodes)), "6")
 }
