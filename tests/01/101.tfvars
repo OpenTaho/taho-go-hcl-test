@@ -24,6 +24,11 @@
 # [0][14] - a pair with a numeric with whitespace on the right
 # [0][15] - a pair with a numeric with whitespace on the left
 #
+# Since a blank line follows this comment the comment here is not associated
+# with the first pair.
+#
+# Later, we will have some examples of comments that are associated with pairs.
+
 test1 = null
 test2=null
 test3= null

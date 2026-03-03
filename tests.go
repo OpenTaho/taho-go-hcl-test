@@ -90,6 +90,10 @@ func testNewFile101(t *testing.T, parser hcl.HclParser) {
 	txt.Add("# [0][14] - a pair with a numeric with whitespace on the right")
 	txt.Add("# [0][15] - a pair with a numeric with whitespace on the left")
 	txt.Add("#")
+	txt.Add("# Since a blank line follows this comment the comment here is not associated")
+	txt.Add("# with the first pair.")
+	txt.Add("#")
+	txt.Add("# Later, we will have some examples of comments that are associated with pairs.")
 	txt.Add("")
 
 	n := 0
@@ -97,6 +101,12 @@ func testNewFile101(t *testing.T, parser hcl.HclParser) {
 	nodes := node.Nodes()
 	expect(t, node.Type().String(), "comment")
 	expect(t, node.Value(), txt.String())
+
+	n++
+	node = fileNodes[n]
+	nodes = node.Nodes()
+	expect(t, node.Type().String(), "space")
+	expect(t, node.Value(), "\n")
 
 	n++
 	node = fileNodes[n]
