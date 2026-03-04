@@ -30,13 +30,13 @@
 #
 # Later, we will have some examples of comments that are associated with pairs.
 
-test1 = null
-test2=null
-test3= null
+test1="A \"complex\" ${1 + 1} string"
+test2 = "A simple string"
+test3= "A simple string"
 
-test4 = "A \"simple\" string"
-test5="A \"simple\" string"
-test6= "A \"simple\" string"
+test4 = null
+test5=null
+test6= null
 
 a_test7_long_name = null
 
