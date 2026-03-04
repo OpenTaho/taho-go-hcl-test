@@ -172,7 +172,7 @@ func testNewFile101(t *testing.T, parser hcl.HclParser) {
 	node = fileNodes[10]
 	nodes = node.Nodes()
 	expect(t, node.Type().String(), "pair")
-	expect(t, node.Value(), "test7_long_name")
+	expect(t, node.Value(), "a_test7_long_name")
 	expect(t, nodes[0].Type().String(), "space")
 	expect(t, nodes[0].Value(), " ")
 	expect(t, nodes[1].Type().String(), "token")

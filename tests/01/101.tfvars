@@ -38,7 +38,7 @@ test4 = "A \"simple\" string"
 test5="A \"simple\" string"
 test6= "A \"simple\" string"
 
-test7_long_name = null
+a_test7_long_name = null
 
 test8 = <<EOT
 This is a heredoc.
