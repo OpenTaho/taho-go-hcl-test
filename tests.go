@@ -325,11 +325,16 @@ func testNewFile101(t *testing.T, parser hcl.HclParser) {
 
 	node = fileNodes[27]
 	nodes = node.Body()
+	expect(t, node.Type().String(), "space")
+	expect(t, node.Value(), "\n")
+
+	node = fileNodes[28]
+	nodes = node.Body()
 	expect(t, node.Type().String(), "pair")
 	expect(t, node.Value(), "test17")
 	expect(t, node.Type().String(), "pair")
 	// TODO, finish this testing
 
 	nLen = len(fileNodes)
-	expect(t, strconv.Itoa(nLen), "28")
+	expect(t, strconv.Itoa(nLen), "38")
 }
