@@ -33,7 +33,7 @@
 #
 # Later, we will have some examples of comments that are associated with pairs.
 
-test01="A \"complex\" ${1 + 1} string"
+test01="A \"complex\" ${"test"} string"
 test02 = "A simple string"
 test03= "A simple string"
 
@@ -58,7 +58,9 @@ EOT
 test10 = 1
 test11=2
 test12= 3
-test13 =4
+test13 =4          # And a comment at the end of a line
 test14 = 5 + 6
 
-test15 = 7 - 8          # And a comment at the end of a line
+test15 = 7 - 8
+test16 = (9 / 10)
+test17 = [11, 12, 13]
