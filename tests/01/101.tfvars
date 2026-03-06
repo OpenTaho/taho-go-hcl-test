@@ -60,3 +60,5 @@ test11=2
 test12= 3
 test13 =4
 test14 = 5 + 6
+
+test15 = 7 - 8          # And a comment at the end of a line

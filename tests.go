@@ -289,6 +289,33 @@ func testNewFile101(t *testing.T, parser hcl.HclParser) {
 	expect(t, nodes[5].Value(), "6")
 	expect(t, strconv.Itoa(len(nodes)), "6")
 
+	node = fileNodes[24]
+	nodes = node.Body()
+	expect(t, node.Type().String(), "space")
+	expect(t, node.Value(), "\n")
+
+	node = fileNodes[25]
+	nodes = node.Body()
+	expect(t, node.Type().String(), "pair")
+	expect(t, node.Value(), "test15")
+	expect(t, nodes[0].Type().String(), "space")
+	expect(t, nodes[0].Value(), " ")
+	expect(t, nodes[1].Type().String(), "token")
+	expect(t, nodes[1].Value(), "7")
+	expect(t, nodes[2].Type().String(), "space")
+	expect(t, nodes[2].Value(), " ")
+	expect(t, nodes[3].Type().String(), "token")
+	expect(t, nodes[3].Value(), "-")
+	expect(t, nodes[4].Type().String(), "space")
+	expect(t, nodes[4].Value(), " ")
+	expect(t, nodes[5].Type().String(), "token")
+	expect(t, nodes[5].Value(), "8")
+	expect(t, nodes[6].Type().String(), "space")
+	expect(t, nodes[6].Value(), "          ")
+	expect(t, nodes[7].Type().String(), "comment")
+	expect(t, nodes[7].Value(), "# And a comment at the end of a line\n")
+	expect(t, strconv.Itoa(len(nodes)), "8")
+
 	nLen = len(fileNodes)
-	expect(t, strconv.Itoa(nLen), "24")
+	expect(t, strconv.Itoa(nLen), "26")
 }
