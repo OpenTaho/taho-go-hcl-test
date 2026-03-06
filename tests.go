@@ -65,27 +65,30 @@ func testNewFile101(t *testing.T, parser hcl.HclParser) {
 	txt.Add("# handle all of these elements correctly and produce the expected output.")
 	txt.Add("#")
 	txt.Add("# [0] ----- the file block")
-	txt.Add("# [0][0] -- the multi-line comment")
+	txt.Add("# [0][0] -- the multi-line header comment")
 	txt.Add("# [0][1] -- a blank line")
-	txt.Add("# [0][2] -- test1; a pair with a null")
-	txt.Add("# [0][3] -- test2; a pair with a null without whitespace")
-	txt.Add("# [0][4] -- test3; a pair with a null with whitespace on the right")
-	txt.Add("# [0][5] -- a blank line")
-	txt.Add("# [0][6] -- test4; a pair with a string")
-	txt.Add("# [0][7] -- test5; a pair with a string without whitespace")
-	txt.Add("# [0][8] -- test6; a pair with a string whitespace on the right")
-	txt.Add("# [0][9] -- another blank line")
-	txt.Add("# [0][10] - test7_...; a pair with a long name and another null value")
-	txt.Add("# [0][11] - yet another blank line")
-	txt.Add("# [0][12] - test8; a pair with a heredoc")
-	txt.Add("# [0][13] - yet another blank line")
-	txt.Add("# [0][14] - test9; a pair with an indent style heredoc")
-	txt.Add("# [0][15] - yet another blank line")
-	txt.Add("# [0][16] - test10; a pair with a numeric")
-	txt.Add("# [0][17] - test11; a pair with a numeric without whitespace")
-	txt.Add("# [0][18] - test12; a pair with a numeric with whitespace on the right")
-	txt.Add("# [0][19] - test13; a pair with a numeric with whitespace on the left")
-	txt.Add("# [0][20] - test14; a pair with a expression of \"5 + 6\"")
+	txt.Add("# [0][2] -- test01; a pair with a complex string")
+	txt.Add("# [0][3] -- test02; a pair with a simple string")
+	txt.Add("# [0][4] -- test03; another pair with a simple string")
+	txt.Add("# [0][5] -- another blank line")
+	txt.Add("# [0][6] -- test04; a pair with a null")
+	txt.Add("# [0][7] -- test06; another pair with a null")
+	txt.Add("# [0][8] -- another blank line")
+	txt.Add("# [0][9] -- A two line comment for test05")
+	txt.Add("# [0][10] - test05; a pair with a null")
+	txt.Add("# [0][11] - another blank line")
+	txt.Add("# [0][12] - A one line comment for a_test07_long_name")
+	txt.Add("# [0][13] - a_test07_long_name; a pair with a long name and a null value")
+	txt.Add("# [0][14] - another blank line")
+	txt.Add("# [0][15] - test08; a pair with a document")
+	txt.Add("# [0][16] - another blank line")
+	txt.Add("# [0][17] - test09; another pair with a document (indent style)")
+	txt.Add("# [0][18] - another blank line")
+	txt.Add("# [0][19] - test10; a pair with a numeric value")
+	txt.Add("# [0][20] - test11; another pair with a numeric value")
+	txt.Add("# [0][21] - test12; another pair with a numeric value")
+	txt.Add("# [0][22] - test13; another pair with a numeric value")
+	txt.Add("# [0][23] - test13; a pair with an expression value")
 	txt.Add("#")
 	txt.Add("# Since a blank line follows this comment the comment here is not associated")
 	txt.Add("# with the first pair.")
@@ -106,7 +109,7 @@ func testNewFile101(t *testing.T, parser hcl.HclParser) {
 	node = fileNodes[2]
 	nodes = node.Body()
 	expect(t, node.Type().String(), "pair")
-	expect(t, node.Value(), "test1")
+	expect(t, node.Value(), "test01")
 	expect(t, nodes[0].Type().String(), "string")
 	expect(t, nodes[0].Value(), "A \\\"complex\\\" ${1 + 1} string")
 	expect(t, strconv.Itoa(len(nodes)), "1")
@@ -114,7 +117,7 @@ func testNewFile101(t *testing.T, parser hcl.HclParser) {
 	node = fileNodes[3]
 	nodes = node.Body()
 	expect(t, node.Type().String(), "pair")
-	expect(t, node.Value(), "test2")
+	expect(t, node.Value(), "test02")
 	expect(t, nodes[0].Type().String(), "space")
 	expect(t, nodes[0].Value(), " ")
 	expect(t, nodes[1].Type().String(), "string")
@@ -124,7 +127,7 @@ func testNewFile101(t *testing.T, parser hcl.HclParser) {
 	node = fileNodes[4]
 	nodes = node.Body()
 	expect(t, node.Type().String(), "pair")
-	expect(t, node.Value(), "test3")
+	expect(t, node.Value(), "test03")
 	expect(t, nodes[0].Type().String(), "space")
 	expect(t, nodes[0].Value(), " ")
 	expect(t, nodes[1].Type().String(), "string")
@@ -139,7 +142,7 @@ func testNewFile101(t *testing.T, parser hcl.HclParser) {
 	node = fileNodes[6]
 	nodes = node.Body()
 	expect(t, node.Type().String(), "pair")
-	expect(t, node.Value(), "test4")
+	expect(t, node.Value(), "test04")
 	expect(t, nodes[0].Type().String(), "space")
 	expect(t, nodes[0].Value(), " ")
 	expect(t, nodes[1].Type().String(), "token")
@@ -149,35 +152,34 @@ func testNewFile101(t *testing.T, parser hcl.HclParser) {
 	node = fileNodes[7]
 	nodes = node.Body()
 	expect(t, node.Type().String(), "pair")
-	expect(t, node.Value(), "test5")
-	expect(t, nodes[0].Type().String(), "token")
-	expect(t, nodes[0].Value(), "null")
-	expect(t, strconv.Itoa(len(nodes)), "1")
-
-	node = fileNodes[8]
-	nodes = node.Body()
-	expect(t, node.Type().String(), "pair")
-	expect(t, node.Value(), "test6")
+	expect(t, node.Value(), "test06")
 	expect(t, nodes[0].Type().String(), "space")
 	expect(t, nodes[0].Value(), " ")
 	expect(t, nodes[1].Type().String(), "token")
 	expect(t, nodes[1].Value(), "null")
 	expect(t, strconv.Itoa(len(nodes)), "2")
 
-	node = fileNodes[9]
+	node = fileNodes[8]
 	nodes = node.Body()
 	expect(t, node.Type().String(), "space")
 	expect(t, node.Value(), "\n")
 
+	node = fileNodes[9]
+	nodes = node.Body()
+	expect(t, node.Type().String(), "comment")
+	txt = NewTextBuilder()
+	txt.Add("# This is a multi-line comment that will be associated with the test05 pair. It")
+	txt.Add("# should move with the pair when the content is reformatted.")
+	txt.Add("")
+	expect(t, node.Value(), txt.String())
+
 	node = fileNodes[10]
 	nodes = node.Body()
 	expect(t, node.Type().String(), "pair")
-	expect(t, node.Value(), "a_test7_long_name")
-	expect(t, nodes[0].Type().String(), "space")
-	expect(t, nodes[0].Value(), " ")
-	expect(t, nodes[1].Type().String(), "token")
-	expect(t, nodes[1].Value(), "null")
-	expect(t, strconv.Itoa(len(nodes)), "2")
+	expect(t, node.Value(), "test05")
+	expect(t, nodes[0].Type().String(), "token")
+	expect(t, nodes[0].Value(), "null")
+	expect(t, strconv.Itoa(len(nodes)), "1")
 
 	node = fileNodes[11]
 	nodes = node.Body()
@@ -186,31 +188,54 @@ func testNewFile101(t *testing.T, parser hcl.HclParser) {
 
 	node = fileNodes[12]
 	nodes = node.Body()
-	expect(t, node.Type().String(), "pair")
-	expect(t, node.Value(), "test8")
-	expect(t, nodes[0].Type().String(), "doc")
-	expect(t, nodes[0].Value(), "This is a heredoc.\n")
-	expect(t, strconv.Itoa(len(nodes)), "1")
+	expect(t, node.Type().String(), "comment")
+	txt = NewTextBuilder()
+	txt.Add("# This is a comment that will be associated with the a_test7_long_name pair.")
+	txt.Add("")
+	expect(t, node.Value(), txt.String())
 
 	node = fileNodes[13]
 	nodes = node.Body()
-	expect(t, node.Type().String(), "space")
-	expect(t, node.Value(), "\n")
+	expect(t, node.Type().String(), "pair")
+	expect(t, node.Value(), "a_test07_long_name")
+	expect(t, nodes[0].Type().String(), "space")
+	expect(t, nodes[0].Value(), " ")
+	expect(t, nodes[1].Type().String(), "token")
+	expect(t, nodes[1].Value(), "null")
+	expect(t, strconv.Itoa(len(nodes)), "2")
 
 	node = fileNodes[14]
 	nodes = node.Body()
-	expect(t, node.Type().String(), "pair")
-	expect(t, node.Value(), "test9")
-	expect(t, nodes[0].Type().String(), "doc-with-indent")
-	expect(t, nodes[0].Value(), "This is an indent style heredoc.\n")
-	expect(t, strconv.Itoa(len(nodes)), "1")
+	expect(t, node.Type().String(), "space")
+	expect(t, node.Value(), "\n")
 
 	node = fileNodes[15]
+	nodes = node.Body()
+	expect(t, node.Type().String(), "pair")
+	expect(t, node.Value(), "test08")
+	expect(t, nodes[0].Type().String(), "doc")
+	expect(t, nodes[0].Value(), "This is a document.\n")
+	expect(t, strconv.Itoa(len(nodes)), "1")
+
+	node = fileNodes[16]
 	nodes = node.Body()
 	expect(t, node.Type().String(), "space")
 	expect(t, node.Value(), "\n")
 
-	node = fileNodes[16]
+	node = fileNodes[17]
+	nodes = node.Body()
+	expect(t, node.Type().String(), "pair")
+	expect(t, node.Value(), "test09")
+	expect(t, nodes[0].Type().String(), "doc-with-indent")
+	expect(t, nodes[0].Value(), "This is an indent style document.\n")
+	expect(t, strconv.Itoa(len(nodes)), "1")
+
+	node = fileNodes[18]
+	nodes = node.Body()
+	expect(t, node.Type().String(), "space")
+	expect(t, node.Value(), "\n")
+
+	node = fileNodes[19]
 	nodes = node.Body()
 	expect(t, node.Type().String(), "pair")
 	expect(t, node.Value(), "test10")
@@ -220,7 +245,7 @@ func testNewFile101(t *testing.T, parser hcl.HclParser) {
 	expect(t, nodes[1].Value(), "1")
 	expect(t, strconv.Itoa(len(nodes)), "2")
 
-	node = fileNodes[17]
+	node = fileNodes[20]
 	nodes = node.Body()
 	expect(t, node.Type().String(), "pair")
 	expect(t, node.Value(), "test11")
@@ -228,7 +253,7 @@ func testNewFile101(t *testing.T, parser hcl.HclParser) {
 	expect(t, nodes[0].Value(), "2")
 	expect(t, strconv.Itoa(len(nodes)), "1")
 
-	node = fileNodes[18]
+	node = fileNodes[21]
 	nodes = node.Body()
 	expect(t, node.Type().String(), "pair")
 	expect(t, node.Value(), "test12")
@@ -238,7 +263,7 @@ func testNewFile101(t *testing.T, parser hcl.HclParser) {
 	expect(t, nodes[1].Value(), "3")
 	expect(t, strconv.Itoa(len(nodes)), "2")
 
-	node = fileNodes[19]
+	node = fileNodes[22]
 	nodes = node.Body()
 	expect(t, node.Type().String(), "pair")
 	expect(t, node.Value(), "test13")
@@ -246,7 +271,7 @@ func testNewFile101(t *testing.T, parser hcl.HclParser) {
 	expect(t, nodes[0].Value(), "4")
 	expect(t, strconv.Itoa(len(nodes)), "1")
 
-	node = fileNodes[20]
+	node = fileNodes[23]
 	nodes = node.Body()
 	expect(t, node.Type().String(), "pair")
 	expect(t, node.Value(), "test14")
@@ -265,5 +290,5 @@ func testNewFile101(t *testing.T, parser hcl.HclParser) {
 	expect(t, strconv.Itoa(len(nodes)), "6")
 
 	nLen = len(fileNodes)
-	expect(t, strconv.Itoa(nLen), "21")
+	expect(t, strconv.Itoa(nLen), "24")
 }
