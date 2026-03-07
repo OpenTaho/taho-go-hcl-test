@@ -47,13 +47,13 @@ test05=null
 # This is a comment that will be associated with the a_test7_long_name pair.
 a_test07_long_name = null
 
-test08 = <<EOT
+test08 = <<EOT1
 This is a document.
-EOT
+EOT1
 
-test09 = <<-EOT
+test09 = <<-EOT2
 This is an indent style document.
-EOT
+EOT2
 
 test10 = 1
 test11=2
@@ -67,3 +67,11 @@ test16 = (9 / 10)
 test17 = (
   11 * 12
 )
+
+test18 = "some text and ${
+  <<-EOT3
+    a document with three lines
+    the second line
+    the third line
+  EOT3
+}"
