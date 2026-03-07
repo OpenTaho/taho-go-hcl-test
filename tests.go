@@ -318,10 +318,17 @@ func testNewFile101(t *testing.T, parser hcl.HclParser) {
 
 	node = fileNodes[26]
 	nodes = node.Body()
+	body0 := nodes[0].Body()
 	expect(t, node.Type().String(), "pair")
 	expect(t, node.Value(), "test16")
-	expect(t, node.Type().String(), "pair")
-	// TODO, finish this testing
+	expect(t, nodes[0].Type().String(), "span")
+	expect(t, nodes[0].Value(), "()")
+	expect(t, body0[0].Value(), "9")
+	expect(t, body0[1].Value(), " ")
+	expect(t, body0[2].Value(), "/")
+	expect(t, body0[3].Value(), " ")
+	expect(t, body0[4].Value(), "10")
+	expect(t, strconv.Itoa(len(nodes)), "2")
 
 	node = fileNodes[27]
 	nodes = node.Body()
@@ -330,11 +337,22 @@ func testNewFile101(t *testing.T, parser hcl.HclParser) {
 
 	node = fileNodes[28]
 	nodes = node.Body()
+	body0 = nodes[0].Body()
 	expect(t, node.Type().String(), "pair")
 	expect(t, node.Value(), "test17")
 	expect(t, node.Type().String(), "pair")
-	// TODO, finish this testing
+	expect(t, nodes[0].Type().String(), "span")
+	expect(t, nodes[0].Value(), "()")
+	expect(t, body0[0].Value(), "\n")
+	expect(t, body0[1].Value(), "  ")
+	expect(t, body0[2].Value(), "11")
+	expect(t, body0[3].Value(), " ")
+	expect(t, body0[4].Value(), "*")
+	expect(t, body0[5].Value(), " ")
+	expect(t, body0[6].Value(), "12")
+	expect(t, body0[7].Value(), "\n")
+	expect(t, strconv.Itoa(len(nodes)), "2")
 
 	nLen = len(fileNodes)
-	expect(t, strconv.Itoa(nLen), "38")
+	expect(t, strconv.Itoa(nLen), "29")
 }
