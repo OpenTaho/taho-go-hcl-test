@@ -364,9 +364,30 @@ func testNewFile101(t *testing.T, parser hcl.HclParser) {
 	expect(t, body[0].Type().String(), "space")
 	expect(t, body[0].Value(), " ")
 	expect(t, body[1].Type().String(), "string")
-	expect(t, body[1].Value(), "some text and ${\n<<-EOT3\n    a document with three lines\n    the second line\n    the third line\n    EOT3\n}}")
+	txt = NewTextBuilder()
+	txt.Add("some text and ${<<-EOT3")
+	txt.Add("    a document with three lines")
+	txt.Add("    the second line")
+	txt.Add("    the third line")
+	txt.Add("}")
+	expect(t, body[1].Value(), txt.String())
+	expect(t, strconv.Itoa(len(body)), "2")
+
+	node = fileNodes[31]
+	body = node.Body()
+	expect(t, node.Type().String(), "space")
+	expect(t, node.Value(), "\n")
+
+	node = fileNodes[32]
+	body = node.Body()
+	expect(t, node.Type().String(), "pair")
+	expect(t, node.Value(), "test19")
+	expect(t, body[0].Type().String(), "space")
+	expect(t, body[0].Value(), " ")
+	expect(t, body[1].Type().String(), "string")
+	expect(t, body[1].Value(), "%{if 1+1 == 2 }true%{else}false%{endif}")
 	expect(t, strconv.Itoa(len(body)), "2")
 
 	nLen = len(fileNodes)
-	expect(t, strconv.Itoa(nLen), "31")
+	expect(t, strconv.Itoa(nLen), "33")
 }

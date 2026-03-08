@@ -68,10 +68,11 @@ test17 = (
   11 * 12
 )
 
-test18 = "some text and ${
-  <<-EOT3
+test18 = "some text and ${<<-EOT3
     a document with three lines
     the second line
     the third line
   EOT3
 }"
+
+test19 = "%{if 1+1 == 2 }true%{else}false%{endif}"
