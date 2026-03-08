@@ -76,3 +76,5 @@ test18 = "some text and ${<<-EOT3
 }"
 
 test19 = "%{if 1+1 == 2 }true%{else}false%{endif}"
+
+test20 = ["a", "b", "c"]
