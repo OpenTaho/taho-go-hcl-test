@@ -10,9 +10,19 @@
 test01="A \"complex\" ${"test"} string"
 test02 = "A simple string"
 test03= "A simple string"
-
 test04 = null
 test06= null
+test10 = 1
+test11=2
+test12= 3
+test13 =4          # And a comment at the end of a line
+test14 = 5 + 6
+test15 = 7 - 8
+test16 = (9 / 10)
+test19 = "%{if 1+1 == 2 }true%{else}false%{endif}"
+test20 = ["a", "b", "c"]
+
+
 
 # This is a multi-line comment that will be associated with the test05 pair. It
 # should move with the pair when the content is reformatted.
@@ -29,15 +39,6 @@ test09 = <<-EOT2
 This is an indent style document.
 EOT2
 
-test10 = 1
-test11=2
-test12= 3
-test13 =4          # And a comment at the end of a line
-test14 = 5 + 6
-
-test15 = 7 - 8
-test16 = (9 / 10)
-
 test17 = (
   11 * 12
 )
@@ -48,10 +49,6 @@ test18 = "some text and ${<<-EOT3
     the third line
   EOT3
 }"
-
-test19 = "%{if 1+1 == 2 }true%{else}false%{endif}"
-
-test20 = ["a", "b", "c"]
 
 test21 = [
   "a",
