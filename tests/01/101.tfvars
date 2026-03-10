@@ -9,7 +9,7 @@
 
 test01="A \"complex\" ${"test"} string"
 test02 = "A simple string"
-test03= "A simple string"
+test03_x= "A simple string"
 
 test04 = null
 test06= null
@@ -56,8 +56,8 @@ test20 = ["a", "b", "c"]
 test21 = [
   "a",
   [
-    "b.1",
     "b.2",
+    "b.1",
     "b.3",
   ],
   "c",
@@ -66,5 +66,13 @@ test21 = [
 test22 = {
   b = "b"
   a = "a"
-  c = "c"
+  c = [
+    "1", "2",
+    "3",
+  ]
+
+  # The "D" value has this comment
+  d = "d"
+
+  e = "e"
 }

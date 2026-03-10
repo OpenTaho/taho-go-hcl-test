@@ -103,7 +103,7 @@ func testNewFile101(t *testing.T, parser hcl.HclParser) {
 	node = fileNodes[4]
 	body = node.Body()
 	expect(t, node.Type().String(), "pair")
-	expect(t, node.Value(), "test03")
+	expect(t, node.Value(), "test03_x")
 	expect(t, body[0].Type().String(), "space")
 	expect(t, body[0].Value(), " ")
 	expect(t, body[1].Type().String(), "string")
@@ -345,6 +345,7 @@ func testNewFile101(t *testing.T, parser hcl.HclParser) {
 	txt.Add("    a document with three lines")
 	txt.Add("    the second line")
 	txt.Add("    the third line")
+	txt.Add("  EOT3")
 	txt.Add("}")
 	expect(t, body[1].Value(), txt.String())
 	expect(t, strconv.Itoa(len(body)), "2")
@@ -447,6 +448,6 @@ func testNewFile101(t *testing.T, parser hcl.HclParser) {
 	file = file.Format()
 	fileNodes = file.Body()
 	nLen = len(fileNodes)
-	expect(t, strconv.Itoa(nLen), "1")
-	fileNodes = fileNodes[0].Body()
+	expect(t, strconv.Itoa(nLen), "2")
+	file.SaveAs("./tests/01/101-out.tfvars")
 }
